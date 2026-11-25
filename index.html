@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>najoru — обучение P2P</title>
+<style>
+:root{color-scheme:dark;--bg:#0a0d14;--card:#121624;--field:#080a11;--line:#232a40;--text:#e8ecf6;--mute:#8791ad;--cyan:#22e5ff;--green:#2fd48b;--red:#ff6b7a;--gold:#f0b94d;--violet:#8b6cf0;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{display:flex;align-items:center;gap:10px;padding:16px 20px;border-bottom:1px solid var(--line)}
+header b{font-size:26px;letter-spacing:-.5px}
+.logo{width:30px;height:30px}
+main{max-width:560px;margin:0 auto;padding:20px 16px 40px;display:grid;gap:20px}
+.intro h1{font-size:28px;line-height:1.15;margin:8px 0 8px}
+.intro p{margin:0;color:var(--mute)}
+section{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:22px 20px}
+.head{display:flex;gap:14px;align-items:center;margin-bottom:18px}
+.ico{flex:none;width:52px;height:52px;border-radius:16px;display:grid;place-items:center;border:1px solid}
+.ico svg{width:24px;height:24px}
+.head h2{margin:0;font-size:22px;line-height:1.2}
+.head small{color:var(--mute);font-size:13px}
+label{display:block;color:var(--mute);font-size:13px;margin:14px 0 6px}
+.f{display:flex;align-items:center;background:var(--field);border:1px solid var(--line);border-radius:16px;padding:0 16px}
+.f:focus-within{border-color:var(--cyan)}
+.f input{flex:1;min-width:0;background:none;border:0;color:var(--text);font:20px ui-monospace,Menlo,Consolas,monospace;padding:14px 0;outline:0}
+.f span{color:var(--mute);font-family:ui-monospace,Menlo,monospace}
+.res{margin-top:20px;background:var(--field);border:1px solid var(--line);border-radius:20px;padding:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.res small{display:block;color:var(--mute);font-size:13px}
+.big{font:700 38px/1.1 system-ui,sans-serif;color:var(--cyan)}
+.profit{font:700 24px ui-monospace,Menlo,monospace;color:var(--green)}
+.neg{color:var(--red)}
+.right{text-align:right}
+.chk{display:flex;gap:12px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line);cursor:pointer}
+.chk:first-of-type{border-top:0}
+.chk input{appearance:none;flex:none;width:24px;height:24px;margin:1px 0 0;border:2px solid var(--line);border-radius:8px;background:var(--field);display:grid;place-items:center}
+.chk input:checked{background:var(--gold);border-color:var(--gold)}
+.chk input:checked::after{content:"";width:6px;height:11px;border:solid #1a1405;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.chk input:focus-visible,summary:focus-visible,button:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.chk b{display:block;font-weight:600}
+.chk em{display:block;font-style:normal;color:var(--mute);font-size:14px}
+.bar{height:8px;background:var(--field);border-radius:8px;overflow:hidden;margin:0 0 6px}
+.bar i{display:block;height:100%;width:0;background:var(--gold);transition:width .25s}
+.cnt{color:var(--mute);font-size:13px;margin:0 0 10px}
+details{border-top:1px solid var(--line)}
+details:first-of-type{border-top:0}
+summary{list-style:none;display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-size:18px;font-weight:600;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";width:9px;height:9px;border:solid var(--mute);border-width:0 2px 2px 0;transform:rotate(45deg);transition:transform .2s;margin-right:6px}
+details[open] summary{color:var(--cyan)}
+details[open] summary::after{transform:rotate(-135deg);border-color:var(--cyan)}
+details p{margin:0 0 16px;color:var(--mute)}
+footer{text-align:center;color:var(--mute);font-size:13px;padding:0 16px 28px}
+.hero{padding:12px 0 4px}
+.tag{display:inline-flex;align-items:center;gap:10px;border:1px solid #16596b;background:#0b2a33;color:var(--cyan);border-radius:999px;padding:8px 16px;font-size:13px}
+.tag i{width:10px;height:10px;border-radius:50%;background:var(--cyan)}
+.hero h1{font-size:40px;line-height:1.05;font-weight:800;text-transform:uppercase;margin:18px 0 14px}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero p{color:var(--mute);margin:0 0 20px;font-size:17px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;border-radius:999px;padding:15px 26px;font:600 17px system-ui,sans-serif;text-decoration:none}
+.b1{background:var(--cyan);color:#04141a}
+.b2{border:1px solid #41338a;background:#1a1438;color:var(--text)}
+#msgs{height:340px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;padding:2px}
+.m{max-width:88%;padding:11px 14px;border-radius:18px;white-space:pre-wrap;overflow-wrap:anywhere;font-size:15px}
+.m.bot{align-self:flex-start;background:var(--field);border:1px solid var(--line)}
+.m.me{align-self:flex-end;background:#0b2a33;border:1px solid #16596b}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0}
+.chips button{background:var(--field);border:1px solid var(--line);color:var(--text);border-radius:999px;padding:8px 14px;font:14px system-ui,sans-serif;cursor:pointer}
+#send{background:var(--cyan);color:#04141a;border:0;border-radius:12px;padding:10px 16px;font:600 15px system-ui,sans-serif;cursor:pointer;margin:6px 0}
+#send:disabled{opacity:.5}
+#q{font-size:16px!important}
+header{position:relative}
+#menubtn,.x{margin-left:auto;flex:none;background:none;border:0;color:var(--text);width:44px;height:44px;border-radius:12px;cursor:pointer;display:grid;place-items:center;font:28px/1 system-ui,sans-serif}
+#menubtn svg{width:24px;height:24px}
+.menu{position:absolute;right:16px;top:100%;margin-top:6px;z-index:20;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:6px;min-width:220px;box-shadow:0 12px 30px #000a}
+.menu[hidden]{display:none}
+.menu button{width:100%;text-align:left;background:none;border:0;color:var(--text);font:16px system-ui,sans-serif;padding:12px 14px;border-radius:10px;cursor:pointer}
+.menu button:hover{background:var(--field)}
+.sheet{display:none;position:fixed;inset:0;z-index:30;overflow-y:auto;border:0;border-radius:0;padding:calc(22px + env(safe-area-inset-top,0px)) 20px calc(22px + env(safe-area-inset-bottom,0px))}
+.sheet.open{display:block}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header>
+<svg class="logo" viewBox="0 0 32 32" fill="none" stroke="#22e5ff" stroke-width="3.5" stroke-linejoin="round"><path d="M4 28V5l24 22V4"/></svg>
+<b>najoru</b>
+<button id="menubtn" type="button" aria-label="Меню" aria-expanded="false"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg></button>
+<div class="menu" id="menu" hidden><button type="button" id="opencalc">Подсчитать спред</button><button type="button" id="opengl">Словарь P2P</button></div>
+</header>
+<main>
+<div class="hero">
+<span class="tag"><i></i>Бесплатное обучение</span>
+<h1>P2P — это <em>профессия,</em> не хайп</h1>
+<p>Обучение P2P-торговле: от первой сделки в escrow до стабильных связок. Калькулятор, чеклист, глоссарий и ИИ-куратор в одном месте.</p>
+<div class="btns"><a class="btn b1" href="https://t.me/najoru" target="_blank" rel="noopener noreferrer">Купить полный курс</a><a class="btn b2" href="https://t.me/CardsCPB" target="_blank" rel="noopener noreferrer">Отзывы</a><a class="btn b2" href="#chat">Спросить ИИ</a></div>
+</div>
+
+<section id="chat">
+<div class="head">
+<div class="ico" style="background:#1d1740;border-color:#41338a;color:var(--violet)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+<div><h2>Чат с ИИ-куратором</h2><small>Отвечает 24/7</small></div>
+</div>
+<div id="msgs" aria-live="polite"></div>
+<div class="chips"><button type="button" data-q="Что такое спред и как его считать?">Что такое спред?</button><button type="button" data-q="Как работает escrow в P2P?">Как работает escrow?</button><button type="button" data-q="Как снизить риск блокировки по 115-ФЗ?">Риск по 115-ФЗ</button></div>
+<div class="f"><input id="q" placeholder="Задай вопрос по P2P" autocomplete="off"><button id="send" type="button">Отправить</button></div>
+</section>
+
+<section id="calc" class="sheet" role="dialog" aria-modal="true" aria-label="Подсчитать спред">
+<div class="head">
+<div class="ico" style="background:#0b2a33;border-color:#16596b;color:var(--cyan)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M8 7h8M8 12h.01M12 12h.01M16 12h.01M8 16h.01M12 16h.01M16 16h.01"/></svg></div>
+<div><h2>Калькулятор спреда</h2><small>Чистая маржа до сделки</small></div>
+<button class="x" id="calcx" type="button" aria-label="Закрыть">×</button>
+</div>
+<label for="buy">Цена покупки</label>
+<div class="f"><input id="buy" inputmode="decimal" value="91,5"><span>₽</span></div>
+<label for="sell">Цена продажи</label>
+<div class="f"><input id="sell" inputmode="decimal" value="93,4"><span>₽</span></div>
+<label for="vol">Объём</label>
+<div class="f"><input id="vol" inputmode="decimal" value="1000"><span>USDT</span></div>
+<label for="fee">Комиссия биржи</label>
+<div class="f"><input id="fee" inputmode="decimal" value="0,1"><span>%</span></div>
+<div class="res">
+<div><small>Чистая маржа</small><div class="big" id="margin">—</div></div>
+<div class="right"><small>Профит</small><div class="profit" id="profit">—</div><small id="fees">комиссии —</small></div>
+</div>
+</section>
+
+<section id="fz">
+<div class="head">
+<div class="ico" style="background:#2b2410;border-color:#6b5619;color:var(--gold)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="m9 15 2 2 4-4"/></svg></div>
+<div><h2>115-ФЗ чеклист</h2><small>Снижаем риск блокировок</small></div>
+</div>
+<div class="bar"><i id="barfill"></i></div>
+<p class="cnt" id="cnt"></p>
+<div id="list"></div>
+</section>
+
+<section id="gl" class="sheet" role="dialog" aria-modal="true" aria-label="Словарь P2P">
+<div class="head">
+<div class="ico" style="background:#1d1740;border-color:#41338a;color:var(--violet)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2zM22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg></div>
+<div><h2>Словарь P2P</h2><small>Термины арбитражника</small></div>
+<button class="x" id="glx" type="button" aria-label="Закрыть">×</button>
+</div>
+<div id="terms"></div>
+</section>
+</main>
+<footer>Материал учебный и не является финансовой или юридической консультацией.</footer>
+
+<script>
+const num=id=>parseFloat(String(document.getElementById(id).value).replace(/\s/g,'').replace(',','.'))||0;
+const fmt=(n,d=0)=>n.toLocaleString('ru-RU',{minimumFractionDigits:d,maximumFractionDigits:d});
+function calc(){
+  const b=num('buy'),s=num('sell'),v=num('vol'),f=num('fee')/100;
+  const cost=b*v,fees=(b*v+s*v)*f,profit=s*v-cost-fees;
+  const m=cost>0?profit/cost*100:0;
+  const mEl=document.getElementById('margin'),pEl=document.getElementById('profit');
+  mEl.textContent=(m>=0?'+':'')+fmt(m,2)+'%';
+  pEl.textContent=(profit>=0?'+':'')+fmt(profit)+' ₽';
+  mEl.style.color=pEl.style.color=profit<0?'var(--red)':'';
+  document.getElementById('fees').textContent='комиссии −'+fmt(fees)+' ₽';
+}
+['buy','sell','vol','fee'].forEach(i=>document.getElementById(i).addEventListener('input',calc));
+calc();
+
+const items=[
+ ['Начинай с малых сумм','Сначала активность, потом оборот: рост лимитов должен быть плавным.'],
+ ['Пиши в назначении платежа только «перевод между своими» или оставь поле пустым','Не указывай слова «USDT», «крипта», «P2P».'],
+ ['Не принимай переводы от третьих лиц без проверки','Сверяй имя отправителя с ордером до выпуска актива.'],
+ ['Держи на карте историю обычных трат','Покупки, оплата услуг и переводы не должны выглядеть как поток только от P2P.'],
+ ['Не делай много одинаковых круглых сумм подряд','Чередуй суммы и паузы, как при обычном использовании карты.'],
+ ['Храни переписку и чеки по сделкам','Если банк запросит пояснения, ты сможешь подтвердить источник средств.'],
+ ['Отвечай на запросы банка быстро и спокойно','Присылай документы по теме запроса, без лишних деталей.'],
+ ['Не используй чужие карты и счета','Платёж должен идти с твоего имени и на твоё имя.']
+];
+const saved=(()=>{try{return JSON.parse(localStorage.getItem('fz')||'[]')}catch(e){return[]}})();
+const list=document.getElementById('list');
+items.forEach((it,i)=>{
+  const l=document.createElement('label');l.className='chk';
+  l.innerHTML='<input type="checkbox"><span><b></b><em></em></span>';
+  l.querySelector('b').textContent=it[0];l.querySelector('em').textContent=it[1];
+  const c=l.querySelector('input');c.checked=saved.includes(i);
+  c.addEventListener('change',upd);list.appendChild(l);
+});
+function upd(){
+  const cs=[...list.querySelectorAll('input')];
+  const done=cs.filter(c=>c.checked).length;
+  document.getElementById('barfill').style.width=done/cs.length*100+'%';
+  document.getElementById('cnt').textContent='Выполнено '+done+' из '+cs.length;
+  try{localStorage.setItem('fz',JSON.stringify(cs.map((c,i)=>c.checked?i:-1).filter(i=>i>=0)))}catch(e){}
+}
+upd();
+
+const terms=[
+ ['Мейкер','Тот, кто создаёт своё объявление и ждёт, когда его примут. Цену и условия задаёт он.'],
+ ['Тейкер','Тот, кто откликается на чужое объявление и принимает условия мейкера.'],
+ ['Спред','Разница между ценой покупки и продажи одного объёма крипты. Источник валовой прибыли арбитражника.'],
+ ['Escrow','Заморозка актива на бирже на время сделки. Продавец отдаёт крипту только после подтверждения оплаты.'],
+ ['Ордер','Отдельная сделка с конкретной ценой, объёмом и способом оплаты.'],
+ ['Треугольник','Связка из трёх сделок, например рубль, USDT, другая валюта или банк и снова рубль. Прибыль берётся из разницы курсов.'],
+ ['Дроп','Человек, на чьё имя оформлена карта или счёт, которым пользуется другой. Это главный источник проблем с блокировками.'],
+ ['Т+1','Правило, по которому средства или статус сделки подтверждаются на следующий день после операции.'],
+ ['Прогрев карты','Постепенное наращивание обычной активности по карте перед большими оборотами.'],
+ ['115-ФЗ','Закон о противодействии отмыванию доходов. На его основании банк может ограничить счёт и запросить пояснения по операциям.']
+];
+const T=document.getElementById('terms');
+terms.forEach((t,i)=>{
+  const d=document.createElement('details');
+  d.innerHTML='<summary></summary><p></p>';
+  d.querySelector('summary').textContent=t[0];d.querySelector('p').textContent=t[1];
+  d.addEventListener('toggle',()=>{if(d.open)T.querySelectorAll('details').forEach(o=>{if(o!==d)o.open=false})});
+  T.appendChild(d);
+});
+const msgs=document.getElementById('msgs'),qi=document.getElementById('q'),sb=document.getElementById('send');
+const hist=[];let busy=false;
+const SYS='Ты ИИ-куратор обучающего проекта najoru по P2P-арбитражу. Отвечай по-русски, кратко (до 6 предложений), простым языком. Объясняй термины, расчёт спреда, комиссии и риски 115-ФЗ. Не давай гарантий прибыли, не помогай обходить закон или блокировки, не советуй чужие карты и дропов. Если вопрос не про P2P и крипту, вежливо верни разговор к теме.';
+function add(role,text){const d=document.createElement('div');d.className='m '+role;d.textContent=text;msgs.appendChild(d);msgs.scrollTop=msgs.scrollHeight;return d}
+add('bot','Привет! Я ИИ-куратор. Спроси про спред, escrow, комиссии или 115-ФЗ.');
+async function ask(text){
+  text=text.trim();if(busy||!text)return;
+  busy=true;sb.disabled=true;qi.value='';
+  add('me',text);hist.push({role:'user',content:text});
+  const out=add('bot','…');
+  try{
+    const sample=typeof claude!=='undefined'?await claude.use('sample'):null;
+    if(!sample){out.textContent='ИИ-куратор сейчас недоступен. Напиши вопрос в Telegram: t.me/najoru.';hist.pop();return}
+    const input=[{role:'user',content:SYS+'\n\nДалее диалог с учеником.'},{role:'assistant',content:'Понял, начинаем.'}].concat(hist.slice(-9));
+    const r=await sample(input,{cache:false,modelTier:'quick',onText:({text})=>{out.textContent=text;msgs.scrollTop=msgs.scrollHeight}});
+    out.textContent=r.text;hist.push({role:'assistant',content:r.text});
+  }catch(e){
+    out.textContent=e&&e.code==='not_granted'?'Доступ к ИИ не разрешён. Нажми «Отправить» ещё раз и подтверди.':'Не получилось ответить. Попробуй ещё раз.';
+    hist.pop();
+  }finally{busy=false;sb.disabled=false}
+}
+sb.addEventListener('click',()=>ask(qi.value));
+qi.addEventListener('keydown',e=>{if(e.key==='Enter')ask(qi.value)});
+document.querySelectorAll('.chips button').forEach(b=>b.addEventListener('click',()=>ask(b.dataset.q)));
+const mb=document.getElementById('menubtn'),mn=document.getElementById('menu'),calcEl=document.getElementById('calc');
+function closeMenu(){mn.hidden=true;mb.setAttribute('aria-expanded','false')}
+mb.addEventListener('click',e=>{e.stopPropagation();const o=mn.hidden;mn.hidden=!o;mb.setAttribute('aria-expanded',String(o))});
+document.addEventListener('click',e=>{if(!mn.contains(e.target))closeMenu()});
+document.getElementById('opencalc').addEventListener('click',()=>{closeMenu();calcEl.classList.add('open');calcEl.scrollTop=0});
+document.getElementById('calcx').addEventListener('click',()=>calcEl.classList.remove('open'));
+const glEl=document.getElementById('gl');
+document.getElementById('opengl').addEventListener('click',()=>{closeMenu();glEl.classList.add('open');glEl.scrollTop=0});
+document.getElementById('glx').addEventListener('click',()=>glEl.classList.remove('open'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMenu();calcEl.classList.remove('open');glEl.classList.remove('open')}});
+</script>
+</body>
+</html>
